@@ -25,8 +25,8 @@ const getStatistics = async (req, res, next) => {
 
     // Recent payments
     const recentPayments = await Payment.find()
-      .populate('invoice', 'invoiceNumber amount')
-      .populate('recordedBy', 'name')
+      .populate('invoice', 'invoiceNumber totalAmount')
+      .populate('recordedBy', 'firstName lastName')
       .sort({ createdAt: -1 })
       .limit(5);
 
@@ -36,7 +36,7 @@ const getStatistics = async (req, res, next) => {
       status: 'planned',
     })
       .populate('invoice', 'invoiceNumber dueDate')
-      .populate('performedBy', 'name')
+      .populate('performedBy', 'firstName lastName')
       .sort({ actionDate: 1 })
       .limit(5);
 
@@ -94,12 +94,12 @@ const getMonthlyStatistics = async (req, res, next) => {
     const monthlyInvoices = await Invoice.aggregate([
       {
         $match: {
-          issueDate: { $gte: startDate, $lte: endDate },
+          createdAt: { $gte: startDate, $lte: endDate },
         },
       },
       {
         $group: {
-          _id: { $month: '$issueDate' },
+          _id: { $month: '$createdAt' },
           count: { $sum: 1 },
           totalAmount: { $sum: '$amount' },
           paidAmount: { $sum: '$paidAmount' },
@@ -112,8 +112,8 @@ const getMonthlyStatistics = async (req, res, next) => {
     const monthlyPayments = await Payment.aggregate([
       {
         $match: {
-          paymentDate: { $gte: startDate, $lte: endDate },
-        },
+          paymentDate: { $gte: startDate, $lte: endDate }
+        }
       },
       {
         $group: {
