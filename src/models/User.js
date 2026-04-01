@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
         enum: ['agent', 'manager', 'admin'],
         default: 'admin'
     },
-}, { timestamps: true });
+}, { timestamps: true }); // Automatically adds createdAt and updatedAt fields
 
 userSchema.pre('save', async function() { 
   if (!this.isModified('password')) {

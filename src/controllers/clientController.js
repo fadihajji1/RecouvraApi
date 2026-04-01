@@ -1,5 +1,8 @@
 const Client = require('../models/Client');
 
+// @desc    Get all clients
+// @route   GET /api/clients
+// @access  Private (agent, manager, admin)
 const getClients = async (req, res, next) => {
   try {
     const clients = await Client.find()
@@ -16,6 +19,9 @@ const getClients = async (req, res, next) => {
   }
 };
 
+// @desc    Get single client
+// @route   GET /api/clients/:id
+// @access  Private (agent, manager, admin)
 const getClient = async (req, res, next) => {
   try {
     const client = await Client.findById(req.params.id)
@@ -29,6 +35,9 @@ const getClient = async (req, res, next) => {
   }
 };
 
+// @desc    Create new client
+// @route   POST /api/clients
+// @access  Private (agent, manager, admin)
 const createClient = async (req, res, next) => {
   try {
     req.body.createdBy = req.user.id;
@@ -36,10 +45,13 @@ const createClient = async (req, res, next) => {
     const client = await Client.create(req.body);
     res.status(201).json({ success: true, client });
   } catch (error) {
-    next(error);
+    next(error); // Pass the error to the global error handler
   }
 };
 
+// @desc    Update client
+// @route   PUT /api/clients/:id
+// @access  Private (agent, manager, admin)
 const updateClient = async (req, res, next) => {
   try {
     const client = await Client.findByIdAndUpdate(
@@ -56,6 +68,9 @@ const updateClient = async (req, res, next) => {
   }
 };
 
+// @desc    Delete client
+// @route   DELETE /api/clients/:id
+// @access  Private (agent, manager, admin)
 const deleteClient = async (req, res, next) => {
   try {
     const client = await Client.findById(req.params.id);
