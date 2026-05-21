@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿# Recouvra+ – API de gestion du recouvrement
-=======
-# Recouvra+ – API de gestion du recouvrement
->>>>>>> 37b30363f1960394a1e4e2e302d0997cff1b676d
 
 ## 📋 Description
 
@@ -169,7 +165,6 @@ npm test
 
 - `GET /api/statistics` - Obtenir les statistiques
 
-<<<<<<< HEAD
 ## Roles et permissions
 
 ### Agent
@@ -300,13 +295,6 @@ To test endpoints with different role permissions:
 | **Cannot connect to server** | Backend not running. Start it with `npm start` on port 3001. |
 
 ---
-=======
-## 👨‍💼 Rôles et permissions
-
-- **Admin** : Accès complet à toutes les fonctionnalités
-- **Manager** : Gestion des clients, factures et actions
-- **Agent** : Consultation et mise à jour des actions de recouvrement
->>>>>>> 37b30363f1960394a1e4e2e302d0997cff1b676d
 
 ## 📧 Contact et support
 
@@ -314,8 +302,4 @@ Pour toute question ou problème, veuillez ouvrir une issue sur le dépôt GitHu
 
 ---
 
-<<<<<<< HEAD
 **Dernière mise à jour** : Mars 2026
-=======
-**Dernière mise à jour** : Mars 2026
->>>>>>> 37b30363f1960394a1e4e2e302d0997cff1b676d
