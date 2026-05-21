@@ -1,3 +1,0 @@
-monggo compass
-mongo community server
-mongo shell
