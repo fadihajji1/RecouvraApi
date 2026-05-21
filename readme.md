@@ -1,4 +1,4 @@
-# Recouvra+ – API de gestion du recouvrement
+﻿# Recouvra+ – API de gestion du recouvrement
 
 ## 📋 Description
 
@@ -165,11 +165,136 @@ npm test
 
 - `GET /api/statistics` - Obtenir les statistiques
 
-## 👨‍💼 Rôles et permissions
+## Roles et permissions
 
-- **Admin** : Accès complet à toutes les fonctionnalités
-- **Manager** : Gestion des clients, factures et actions
-- **Agent** : Consultation et mise à jour des actions de recouvrement
+### Agent
+
+- **Users** : read all, read one, update any user, delete any user except own account.
+- **Clients** : read all clients and read one client only. No create/update/delete.
+- **Invoices** : read invoices, but controller filters list to clients created by that agent; single invoice is blocked if not linked to their client. No create/update/status/delete.
+- **Payments** : create payment, read one payment. Cannot list all payments, update, or delete.
+- **Recovery actions** : read all/read one only. No create/update/delete.
+- **Statistics** : read main stats only. No monthly stats.
+
+### Manager
+
+- **Users** : read all, read one, update any user, delete any user except own account.
+- **Clients** : full CRUD.
+- **Invoices** : full CRUD plus status update.
+- **Payments** : list all, read one, create, update. Cannot delete payments.
+- **Recovery actions** : full CRUD.
+- **Statistics** : main stats and monthly stats.
+
+### Admin
+
+- **Users** : read all, read one, update any user, delete any user except own account.
+- **Clients** : full CRUD.
+- **Invoices** : full CRUD plus status update.
+- **Payments** : full CRUD, including delete.
+- **Recovery actions** : full CRUD.
+- **Statistics** : main stats and monthly stats.
+
+---
+
+## 🧪 API Testing with Swagger
+
+The RecouvraApi backend is fully documented with **Swagger/OpenAPI 3.0**, providing an interactive interface for testing all API endpoints.
+
+### Accessing Swagger UI
+
+Once the backend is running, open your browser and navigate to:
+
+```
+http://localhost:3001/api-docs
+```
+
+You should see the Swagger dashboard with all available endpoints organized by module.
+
+![Swagger](docs/swagger.png)
+
+### Testing Protected Endpoints with JWT
+
+Most endpoints require authentication via JWT token. Follow these steps:
+
+
+#### Step 1: Get JWT Token from Login
+
+1. **Locate the Auth section** in Swagger
+2. **Click on** `POST /api/auth/login` endpoint
+3. **Click** "Try it out" button
+4. **Enter credentials** in the Request body:
+   ```json
+   {
+     "email": "test@example.com",
+     "password": "TestPassword123"
+   }
+   ```
+5. **Click** "Execute" button
+
+   ![Swagger Login Request](docs/swagger-login-request.png)
+
+6. **Copy the JWT token** from the Response body (the `token` field value)
+
+#### Step 2: Authorize with JWT Token
+
+1. **Click** the green "Authorize" button at the top of the Swagger page
+
+   ![Swagger Authorize Button](docs/swagger-authorize-button.png)
+
+2. **In the "Available authorizations" modal**, select **"bearerAuth (http, Bearer)"**
+
+3. **Paste the JWT token** in the Value field (without "Bearer" prefix)
+
+   ![Swagger Authorization Modal](docs/swagger-authorize-modal.png)
+
+4. **Click** "Authorize" button to confirm
+
+5. **Click** "Close" to dismiss the modal
+
+#### Step 3: Test Protected Endpoints
+
+Once authorized, all protected endpoints will automatically include the JWT token in the request header:
+
+1. **Navigate** to any protected endpoint (e.g., `GET /api/clients`)
+2. **Click** "Try it out"
+3. **Click** "Execute"
+4. The request will now succeed with proper authorization
+
+### Token Expiration
+
+- Tokens are typically valid for a limited time (usually 24 hours)
+- If you get a `401 Unauthorized` response, your token has expired
+- **Solution**: Repeat Step 1 to get a new token, then re-authorize in Step 2
+
+### Testing Different User Roles
+
+To test endpoints with different role permissions:
+
+1. **Register/Login** with accounts having different roles (Agent, Manager, Admin)
+2. **Get the JWT token** for each account
+3. **Switch authorization tokens** by clicking "Authorize" and entering a different token
+4. **Test the same endpoint** to see if access is granted or denied based on role
+
+### Example Workflow
+
+```
+1. Login with Agent account → Get Agent token
+2. Authorize with Agent token
+3. Try GET /api/payments → ❌ Access Denied (Agents can't list payments)
+4. Click Authorize → Enter Manager token
+5. Try GET /api/payments → ✅ Success (Managers can list payments)
+```
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| **401 Unauthorized** | Token is missing or expired. Get a new token from login endpoint. |
+| **403 Forbidden** | Your user role doesn't have permission. Try with a different role's token. |
+| **CORS Error** | Backend CORS not enabled. Add `app.use(cors())` in `app.js`. |
+| **Cannot connect to server** | Backend not running. Start it with `npm start` on port 3001. |
+
+---
 
 ## 📧 Contact et support
 
