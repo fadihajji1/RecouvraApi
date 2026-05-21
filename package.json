@@ -1,0 +1,40 @@
+{
+  "name": "recouvra",
+  "version": "1.0.0",
+  "description": "Recouvra+ est une API REST développée avec Express.js permettant de gérer les clients, les factures impayées et les actions de recouvrement d'une entreprise. Le projet est uniquement backend, sans paiement en ligne ni fonctionnalités temps réel.",
+  "homepage": "https://github.com/fadihajji1/Recouvra#readme",
+  "bugs": {
+    "url": "https://github.com/fadihajji1/Recouvra/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadihajji1/Recouvra.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js --watch"
+  },
+  "dependencies": {
+    "argon2": "^0.44.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.4"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
