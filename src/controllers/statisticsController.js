@@ -20,11 +20,7 @@ const getStatistics = async (req, res, next) => {
 
     const recentPayments = await Payment.find()
       .populate('invoice', 'invoiceNumber totalAmount')
-<<<<<<< HEAD
       .populate('createdBy', 'firstName lastName')
-=======
-      .populate('recordedBy', 'firstName lastName')
->>>>>>> v4
       .sort({ createdAt: -1 })
       .limit(5);
 
@@ -81,13 +77,8 @@ const getMonthlyStatistics = async (req, res, next) => {
     const monthlyInvoices = await Invoice.aggregate([
       {
         $match: {
-<<<<<<< HEAD
           createdAt: { $gte: startDate, $lte: endDate }
         }
-=======
-          createdAt: { $gte: startDate, $lte: endDate },
-        },
->>>>>>> v4
       },
       {
         $group: {

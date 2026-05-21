@@ -31,59 +31,40 @@ L'API REST propose les fonctionnalités suivantes :
 
 - Node.js 22 ou supérieur
 - MongoDB (local ou cloud)
-- npm (inclus avec Node.js)
+  - Mongo compass (required)
+  - mongo community server (optional)
 
 ### Étapes d'installation
 
 1. **Cloner le projet**
-   ```bash
+  ```bash
    git clone <repository-url>
    cd Recouvra
-   ```
+  ```
+2. **Creer un fichier** `.env` **à la racine de projet :**
+  ```
+  MONGO_URI=mongodb+srv://Username:PASSWORD@cluster0.h3tiuab.mongodb.net/recouvra
+  JWT_SECRET=GenerateYourJwtKey    
+  ```
+3. **Ou installer les dépendances supplémentaires manuellement** 
+  ```bash
+   npm i
 
-2. **Installer les dépendances npm**
-   ```bash
-   npm install
-   ```
+  # Ou mannuellement 
 
-3. **Installer Express.js**
-   ```bash
    npm install express
-   ```
-
-4. **Installer les dépendances supplémentaires**
-   ```bash
    npm install mongoose
    npm install jsonwebtoken
    npm install joi
    npm install swagger-ui-express swagger-jsdoc
    npm install jest --save-dev
-   ```
-
-   Ou en une seule commande :
-   ```bash
-   npm install express mongoose jsonwebtoken joi swagger-ui-express swagger-jsdoc jest --save-dev
-   ```
-
-5. **Configuration de l'environnement**
+  ```
    
-   Créer un fichier `.env` à la racine du projet :
-   ```
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/recouvra
-   JWT_SECRET=your_jwt_secret_key
-   NODE_ENV=development
-   ```
-
-6. **Démarrer l'application**
-   ```bash
+4. **Démarrer l'application**
+  ```bash
    npm start
-   ```
-
-   ou en mode développement (avec nodemon) :
-   ```bash
-   npm run dev
-   ```
+  ```
+   
 
 ## 📁 Structure du projet
 
@@ -144,16 +125,19 @@ npm test
 ## 📝 API Endpoints
 
 ### Authentification
+
 - `POST /api/auth/register` - Créer un nouvel utilisateur
 - `POST /api/auth/login` - Connexion utilisateur
 
 ### Utilisateurs
+
 - `GET /api/users` - Lister les utilisateurs
 - `GET /api/users/:id` - Détails d'un utilisateur
 - `PUT /api/users/:id` - Modifier un utilisateur
 - `DELETE /api/users/:id` - Supprimer un utilisateur
 
 ### Clients
+
 - `GET /api/clients` - Lister les clients
 - `POST /api/clients` - Créer un client
 - `GET /api/clients/:id` - Détails d'un client
@@ -161,20 +145,24 @@ npm test
 - `DELETE /api/clients/:id` - Supprimer un client
 
 ### Factures
+
 - `GET /api/invoices` - Lister les factures
 - `POST /api/invoices` - Créer une facture
 - `GET /api/invoices/:id` - Détails d'une facture
 - `PUT /api/invoices/:id` - Modifier une facture
 
 ### Paiements
+
 - `POST /api/payments` - Enregistrer un paiement
 
 ### Actions de recouvrement
+
 - `GET /api/recovery-actions` - Lister les actions
 - `POST /api/recovery-actions` - Créer une action
 - `PUT /api/recovery-actions/:id` - Modifier une action
 
 ### Statistiques
+
 - `GET /api/statistics` - Obtenir les statistiques
 
 ## 👨‍💼 Rôles et permissions
